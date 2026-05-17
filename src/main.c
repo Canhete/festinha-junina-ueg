@@ -65,7 +65,17 @@ int main(){
 // bibliotecas proprias
 #include "../include/vendaIngressos.h"
 
+// Declarando a variável global do estoque
+// Ela fica visível para todas as funções do seu arquivo
+ControleEstoque estoque_festa;
+
 int main(){
+
+	estoque_festa.ingressos = 1000;
+    	estoque_festa.cervejas = 1000;
+    	estoque_festa.refrigerantes = 500;
+    	estoque_festa.pasteis = 300;
+
 	printf("Sistema Geral de Festa Junina\n");
 
 	int escolha;

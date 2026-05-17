@@ -9,6 +9,8 @@
 #include "../include/vendaIngressos.h"
 #include "../include/pessoa.h"
 
+extern ControleEstoque estoque_festa;
+
 int validarMatricula(int matricula_digitada) { // funcao para verificar se a matricula informada e valida
     FILE *file = fopen("./data/ingressos/alunosCadastrados.csv", "r");
     if (file == NULL){
@@ -69,6 +71,8 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
             lista = novo_aluno;
             cont_sucesso++;
 
+	    estoque_festa.ingressos--;
+
             for (int i = 0; i < extras; i++) {
                 char nome_convidado[60];
 		snprintf(nome_convidado, sizeof(nome_convidado), "Convidado %d de %s", i + 1, nome);
@@ -79,6 +83,9 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
                 novo_convidado->proximo = lista;
                 lista = novo_convidado;
                 cont_sucesso++;
+
+		estoque_festa.ingressos--;
+
             }
         } else {
             cont_barrado++;
@@ -115,7 +122,6 @@ int salvarLista(char nomeArquivo[], Pessoa *lista){ // salva a lista encadeada e
 
 void esperarEnter(){
 	printf("Pressione Enter para continuar\n\n");
-
 	system("stty -echo"); // desliga o eco
 	
 	int c;
@@ -140,7 +146,8 @@ int vendaIngressos(){
 	lista_festa = carregar_vendas_antecipadas("./data/ingressos/listaAlunosAntes28.csv", lista_festa, &barrados, &sucesso);
 	salvarLista("./data/ingressos/ingressosVendidos.csv", lista_festa);
 
-	printf("Quantidade de convidados aceitos: %d\nQuantidade de alunos barrados: %d\n\n", sucesso, barrados);
+	printf("Quantidade de convidados aceitos: %d\nQuantidade de alunos barrados: %d\n", sucesso, barrados);
+	printf("Ingressos restantes: %d\nIngressos vendidos: %d\n\n", estoque_festa.ingressos, (MAX_INGRESSOS-estoque_festa.ingressos));
 
 	esperarEnter();
 
