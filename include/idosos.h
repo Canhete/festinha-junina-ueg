@@ -7,8 +7,11 @@
 #define IDOSO_H
 
 // Bibliotecas
+#include "persistencia.h"
 // #include "biblioteca" se necessário
 
-int isIdoso(const char* caminho);
+int isIdoso(Ingresso *ing);
+int salvarIdoso(Ingresso *ing, const char *diretorio);
+int carregarIdosos(Ingresso *fila, const char* diretorio);
 
 #endif
