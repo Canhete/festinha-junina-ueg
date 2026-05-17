@@ -87,7 +87,7 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
             }
         } else {
             cont_barrado++;
-        }
+	}
     }
     fclose(arquivo);
 
@@ -152,17 +152,27 @@ void carregarImediato(char* nome_arquivo, FilaVendas* filaGeral, FilaVendas* fil
 
     // Lendo linha por linha do arquivo
     while (fscanf(arquivo, "%d,%[^,],%d,%d,%f\n", &matricula, nome, &idade, &extras, &saldo_inicial) != EOF) {
-	    Pessoa* novo = criar_no(nome, idade, ALUNO, matricula, matricula, saldo_inicial);
-
+	    extras = 0;
 	    if (matricula == 0){
 		    if (idade > 60){
+			Pessoa* novo = criar_no(nome, idade, IDOSO, matricula, matricula, saldo_inicial);
 			enfileirar(filaIdosos, novo);
 		    } else{
+			Pessoa* novo = criar_no(nome, idade, RESTO, matricula, matricula, saldo_inicial);
 			enfileirar(filaGeral, novo);
 		    }
 	    } else{
 		    if (validarMatricula(matricula)){
+			    Pessoa* novo = criar_no(nome, idade, ALUNO, matricula, matricula, saldo_inicial);
 			    enfileirar(filaAlunos, novo);
+			    for (int i = 0; i < extras; i++) {
+                		char nome_convidado[60];
+				snprintf(nome_convidado, sizeof(nome_convidado), "Convidado %d de %s", i + 1, nome);
+
+                		Pessoa* novo_convidado = criar_no(nome_convidado, 18, RESTO, 0, 0, 0.0);
+                
+                		enfileirar(filaGeral, novo_convidado);
+			    }
 		    }		
 	}
     }
@@ -230,6 +240,12 @@ void dia28(){
     	FilaVendas geral  = {NULL, NULL};
 
 	carregarImediato("./data/ingressos/vendaImediata.csv", &geral, &idosos, &alunos);
+
+	printf("Ingressos restantes: %d\nIngressos vendidos: %d\n\n", estoque_festa.ingressos, (MAX_INGRESSOS-estoque_festa.ingressos));
+
+	esperarEnter();
+	printf("\033[H\033[J"); // limpando o terminal
+
 }
 
 int vendaIngressos(){
