@@ -5,32 +5,40 @@
 #include "include/persistencia.h"
 #include "ingresso.h"
 
-#define CABECALHO "Prioridade,"
+#define CABECALHO "Id;Nome;Idade\n"
+#define BUFFER_LINHA 512
 
 // Funções
+
+// Validação, se é idoso ou não, 60+
+// Retorna 1 para verdadeiro, 0 para falsto
+int isIdoso(Ingresso *ing) {
+    return (ing->idade >= 60);
+}
+
 // Salva uma entrada de ingresso para arquivo idoso.csv
 // Retorna 1 para sucesso, 0 para fracasso
-int salvarIdoso(Ingresso *i, const char *diretorio) {
+int salvarIdoso(Ingresso *ing, const char *diretorio) {
     FILE *arq = fopen(diretorio, "a");
     if (arq == NULL) {
         return -1; // Erro ao abrir arquivo
     }
 
-    fprintf(arq, "%s,%s,%d,%d,%.2f\n",
-        i->matricula,
-        i->nome,
-        i->idade,
-        i->ingressosExtras,
-        i->saldoInicial
-    );
+    if (isIdoso(ing)) {
+        fprintf(arq, "%d;%s;%d\n",
+            ing->id,
+            ing->nome,
+            ing->idade
+        );
+    }
 
     fclose(arq);
     return 1; // Sucesso
 }
 
-// Carrega o ingresso na fila apartir do arquivo
+// Carrega o idosos na fila apartir do arquivo
 // Retorna a quantidade de dados lidos, -1 para fracasso
-int carregarIngressos(Ingresso *fila, const char* diretorio, int max) {
+int carregarIdosos(Ingresso *fila, const char* diretorio) {
     FILE *arq = fopen(diretorio, "r");
     if (arq == NULL) {
         return -1; // Erro ao abrir arquivo 
@@ -41,22 +49,20 @@ int carregarIngressos(Ingresso *fila, const char* diretorio, int max) {
 
     fgets(linha, sizeof(linha), arq);
 
-    while (fgets(linha, sizeof(linha, arq)) != EOF && qtd < max) {
-        Ingresso *i = &fila[qtd];
+    while (fgets(linha, sizeof(linha), arq) != EOF) {
+        Ingresso *ing = &fila[qtd];
 
-        int lidos = sscanf(linha, "%15[^,],%63[^,],%d,%d,%f",
-            i->matricula,
-            i->nome,
-            &i->idade,
-            &i->ingressosExtras,
-            &i->saldoInicial
+        if (!isIdoso(ing)) continue; // Ignora quem não é idoso
+
+        int lidos = sscanf(linha, "%d;%63[^;];%d",
+            ing->id,
+            ing->nome,
+            ing->idade
         );
 
-        if (lidos == 5) qtd++;
+        if (lidos == 3) qtd++; // Conta cada idoso
     }
 
     fclose(arq);
     return qtd; // Sucesso
 }
-
-int ehIdoso
