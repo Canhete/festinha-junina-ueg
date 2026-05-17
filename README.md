@@ -13,7 +13,7 @@ Esse sistema tem por objetivo atender as demandas de venda de ingressos, aliment
 #### Venda antes do dia 28
 
 Os ingressos podem ser vendidos antes do dia 28 somente para alunos. Cada aluno pode comprar no máximo 3 ingressos(um para uso próprio e 2 para convidados) Alunos podem fazer uso de um sistema de crédito, que funciona como forma de pagamento dentro da festa. O aluno pode "atribuir um saldo" ao seu crédito
-exclusivamente no momento da compra do ingresso e usar esse saldo para pagar por pro:?dutos durante a festa. O aluno não é obrigado a gastar todos os seus créditos, e ele pode até mesmo gastar mais do que seus créditos permitem, ficando em débito e sendo obrigado a pagar esse débito ao sair da festa.
+exclusivamente no momento da compra do ingresso e usar esse saldo para pagar por produtos durante a festa. O aluno não é obrigado a gastar todos os seus créditos, e ele pode até mesmo gastar mais do que seus créditos permitem, ficando em débito e sendo obrigado a pagar esse débito ao sair da festa.
 
 Ao sair da festa, o aluno deve pagar o seu débito(caso necessário), ou receber de volta o valor que não foi gasto(caso ele não tenha gastado todos os seus créditos)
 
@@ -23,7 +23,7 @@ No dia da festa será necessário implementar uma fila de espera para a venda de
 
 A fila tem um sistema de prioridade que separa os indivíduos em três grupos: idosos, estudante e resto.
 
-Idosos tem prioridade máxima.
+Idosos tem prioridade máxima, estudante tem prioridade sobre resto.
 
 No dia da festa os alunos ainda podem usar o sistema de créditos e ainda podem comprar ingressos extras para convidados.
 
@@ -58,9 +58,9 @@ Para venda antes do dia 28 será realizada a leitura de um arquivo CSV que cont�
 O arquivo simula a ordem de chegada dos alunos para compra.
 Para cada ingresso vendido, deve ser armazenado em um outro arquivo CSV os dados do indivíduo, esse arquivo é a lista de pessoas que compraram ingressos e estão permitidas na festa.
 
-Para venda no dia 28 será implementado duas filas dinâmicas simulando a fila de atendimento comum e a fila de atendimento preferencial.
-O atendimento preferencial se baseia na idade do indivíduo. 
-O atendimento será feito de forma alternada, uma quantidade X de atendimentos na fila prioritária e uma quantidade Y de atendimentos na fila normal por vez.
+Para venda no dia 28 será implementado três filas dinâmicas simulando a fila de atendimento comum e a fila de atendimento preferencial.
+O atendimento preferencial se baseia na idade do indivíduo e se é ou não aluno.
+O atendimento será feito de forma alternada, uma quantidade X de atendimentos nas filas prioritária e uma quantidade Y de atendimentos na fila normal por vez.
 
 #### Venda de produtos
 
