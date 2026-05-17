@@ -10,7 +10,7 @@
 #include "../include/pessoa.h"
 
 int validarMatricula(int matricula_digitada) { // funcao para verificar se a matricula informada e valida
-    FILE *file = fopen("./data/ingressos/alunosCadastrados.csv", "r");
+    FILE *file = fopen("..data/alunosCadastrados.csv", "r");
     if (file == NULL){
 	printf("Algo deu errado ao abrir o arquivo!");
 	return 0;
@@ -102,7 +102,7 @@ int vendaIngressos(){
 	
 	int barrados=0;
 	int sucesso=0;
-	lista_festa = carregar_vendas_antecipadas("./data/ingressos/listaAlunosAntes28.csv", lista_festa, &barrados, &sucesso);
+	lista_festa = carregar_vendas_antecipadas("../data/alunosCadastrados.csv", lista_festa, &barrados, &sucesso);
 
 	printf("Quantidade de convidados aceitos: %d\nQuantidade de alunos barrados: %d\n\n", sucesso, barrados);
 

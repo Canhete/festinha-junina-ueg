@@ -27,4 +27,6 @@ typedef struct Pessoa {
     struct Pessoa* proximo;
 } Pessoa;
 
+Pessoa* criar_no(char* nome, int idade, TipoCliente tipo, int mat_dono, int mat_comprador, float saldo);
+
 #endif 
