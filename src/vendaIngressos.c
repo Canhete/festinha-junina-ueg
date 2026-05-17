@@ -35,7 +35,7 @@ int validarMatricula(int matricula_digitada) { // funcao para verificar se a mat
     return 0; // Matricula não existe
 }
 
-Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resBarrado, int* resSucesso) {
+Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resBarrado, int* resSucesso) { // le todas as linhas do CSV, verifica se a matricula e valida e adiciona o aluno na lista se for valida
     FILE* arquivo = fopen(nome_arquivo, "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
@@ -93,6 +93,41 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
     return lista; // Retorna o novo ponteiro de início da lista
 }
 
+int salvarLista(char nomeArquivo[], Pessoa *lista){ // salva a lista encadeada em um arquivo CSV
+	FILE *arquivo = fopen(nomeArquivo, "w");
+
+	if (arquivo == NULL){
+		printf("Algo deu errado!");
+		return -1;
+	}
+	
+	fprintf(arquivo, "Matricula_Dono,Nome_Dono,Tipo_Cliente,Matricula_Comprador,Saldo,Debito\n");
+	
+	Pessoa *atual = lista;
+
+	while(atual != NULL){
+		fprintf(arquivo, "%d,%s,%d,%d,%.2f,%.2f\n", atual->matricula_dono,atual->nome,atual->tipo,atual->matricula_comprador,atual->saldo,atual->debito);
+		atual = atual->proximo;
+	}
+	fclose(arquivo);
+	return 1;
+}
+
+void esperarEnter(){
+	printf("Pressione Enter para continuar\n\n");
+
+	system("stty -echo"); // desliga o eco
+	
+	int c;
+
+	while (getc(stdin) == '\n'); 
+
+	while ((c = getchar()) != '\n' && c != EOF) { // aguarda o enter
+	} 
+
+	system("stty echo"); // religa o eco
+}
+
 int vendaIngressos(){
 	printf("\033[H\033[J"); // limpando o terminal
 
@@ -103,8 +138,11 @@ int vendaIngressos(){
 	int barrados=0;
 	int sucesso=0;
 	lista_festa = carregar_vendas_antecipadas("./data/ingressos/listaAlunosAntes28.csv", lista_festa, &barrados, &sucesso);
+	salvarLista("./data/ingressos/ingressosVendidos.csv", lista_festa);
 
 	printf("Quantidade de convidados aceitos: %d\nQuantidade de alunos barrados: %d\n\n", sucesso, barrados);
+
+	esperarEnter();
 
 	return 0;
 }
