@@ -1,6 +1,13 @@
 # festinha-junina-ueg
 Esse é um sistema que simula a compra de ingressos de uma festa junina.
 
+## Compilação
+
+Gerando binário
+`gcc main.c src/*.c -o exec`
+Executando binário
+`./exec`
+
 ## Contexto
 
 Uma festa junina será realizada no dia 28 de Maio.
@@ -72,6 +79,10 @@ Para cada venda deve ser armazenado em algum arquivo CSV o produto vendido, comp
 Esse arquivo será necessário para gerar o relatório final de lucros no fim da festa.
 
 Importante também reduzir a quantidade de produtos no estoque.
+
+### Fluxograma inicial projeto
+
+![Fluxograma projeto](./media/fluxogramaProjeto.png)
 
 
 

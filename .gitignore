@@ -7,6 +7,7 @@ build/
 
 # Binário
 festa
+exec
 
 # Dados de runtime (não versionar CSV com dados reais)
 data/*.csv
