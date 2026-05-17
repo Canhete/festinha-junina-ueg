@@ -37,9 +37,9 @@ Alunos podem pagar os produtos por meio do crédito. Ao ser feito o pagamento po
 
 Os alimentos e bebidas disponibilizados na festa podem ser selecionados posteriormente, mas existe um limite de x tipos de alimentos e y tipos de bebidas.
 
-### Implementações adicionais
+### Implementações adicionais(Não são prioridades)
 
-#### Controle de estoque(não são prioridades, mas diferenciais para o nosso sistema)
+#### Controle de estoque
 
 Pensar uma quantidade máxima de alimentos de cada tipo. Para cada venda de um determinado produto, deve ser decrementado a quantidade vendida do estoque geral.
 Cada venda deve ser registrada em um arquivo CSV, com produto vendido, quantidade, comprador e valor.
