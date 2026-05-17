@@ -35,7 +35,8 @@ No dia da festa os alunos ainda podem usar o sistema de créditos e ainda podem 
 
 Alunos podem pagar os produtos por meio do crédito. Ao ser feito o pagamento por crédito, deve simplesmente ser decrementado o valor do produto no saldo do aluno. Se isso resultar em um valor negativo, significa que o aluno está em débito e deve realizar o pagamento ao sair da festa(Estar em débito não impede o aluno de comprar novos produtos, contanto que seja feito o pagamento no final)
 
-Os alimentos e bebidas disponibilizados na festa podem ser selecionados posteriormente, mas existe um limite de x tipos de alimentos e y tipos de bebidas.
+Os alimentos e bebidas disponibilizados na festa podem ser selecionados posteriormente, mas existe um limite de 4 tipos de bebidas.
+Bebidas alcoólicas só podem ser vendidas para maiores de 18 anos.
 
 ### Implementações adicionais(Não são prioridades)
 
@@ -44,4 +45,33 @@ Os alimentos e bebidas disponibilizados na festa podem ser selecionados posterio
 Pensar uma quantidade máxima de alimentos de cada tipo. Para cada venda de um determinado produto, deve ser decrementado a quantidade vendida do estoque geral.
 Cada venda deve ser registrada em um arquivo CSV, com produto vendido, quantidade, comprador e valor.
 Ao final deve ser possível visualizar de forma geral os lucros da festa a partir desses dados.
+
+### Módulos essenciais para implementação
+
+#### Venda de ingressos
+
+Módulo responsável pela venda de ingressos. Controle do sistema de filas, armazenamento dos compradores.
+
+##### Ideia de implementação inicial
+
+Para venda antes do dia 28 será realizada a leitura de um arquivo CSV que contém informações essenciais sobre o aluno: ID geral, nome, idade, etc.
+O arquivo simula a ordem de chegada dos alunos para compra.
+Para cada ingresso vendido, deve ser armazenado em um outro arquivo CSV os dados do indivíduo, esse arquivo é a lista de pessoas que compraram ingressos e estão permitidas na festa.
+
+Para venda no dia 28 será implementado duas filas dinâmicas simulando a fila de atendimento comum e a fila de atendimento preferencial.
+O atendimento preferencial se baseia na idade do indivíduo. 
+O atendimento será feito de forma alternada, uma quantidade X de atendimentos na fila prioritária e uma quantidade Y de atendimentos na fila normal por vez.
+
+#### Venda de produtos
+
+Módulo responsável pela venda de produtos dentro da festa.
+
+##### Ideia de implementação inicial
+
+Para cada venda deve ser armazenado em algum arquivo CSV o produto vendido, comprador, valor, etc.
+Esse arquivo será necessário para gerar o relatório final de lucros no fim da festa.
+
+Importante também reduzir a quantidade de produtos no estoque.
+
+
 
