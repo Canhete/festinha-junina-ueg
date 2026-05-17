@@ -3,8 +3,9 @@ Esse é um sistema que simula a compra de ingressos de uma festa junina.
 
 ## Compilação
 
+Gerando binário
 `gcc main.c -o exec`
-
+Executando binário
 `./exec`
 
 ## Contexto
