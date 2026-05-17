@@ -1,7 +1,11 @@
 // Arquivo de incialização do projeto. Ese arquivo deve conter somente o menu inicial do projeto e a chamada dos demais módulos.
 // Não insira métodos adicionais ou lógica complexa nesse arquivo.
 
+// bibliotecas padrao
 #include <stdio.h>
+
+// bibliotecas proprias
+#include "./include/vendaIngressos.h"
 
 int main(){
 	printf("Sistema Geral de Festa Junina\n");
@@ -18,6 +22,7 @@ int main(){
 		switch(escolha){
 			case 1:
 				// chamar módulo venda de ingressos
+				vendaIngressos();
 				break;
 			case 2:
 				// chamar módulo venda de produtos
