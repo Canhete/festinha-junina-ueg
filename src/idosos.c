@@ -1,8 +1,6 @@
-// Módulo persistência:
-// Gerencia a leitura e escrita em arquivo csv
-// Apenas lê e escreve em arquivo csv
+// Módulo idosos
+// Informações a cerca do tipo Idoso
 
-// Bibliotecas
 #include <stdio.h>
 #include "include/persistencia.h"
 #include "ingresso.h"
@@ -12,21 +10,21 @@
 
 // Funções
 
-// Validação se é idoso ou não, 60+
-// Retorna 1 para verdadeiro, 0 para falso
-int isIdoso(Ingresso ing) {
-    return (ing.idade >= 60);
+// Validação, se é idoso ou não, 60+
+// Retorna 1 para verdadeiro, 0 para falsto
+int isIdoso(Ingresso *ing) {
+    return (ing->idade >= 60);
 }
 
-// Salva uma entrada de idoso no arquivo .csv
+// Salva uma entrada de ingresso para arquivo idoso.csv
 // Retorna 1 para sucesso, 0 para fracasso
-int salvarIngresso(Ingresso *ing, const char *diretorio) {
+int salvarIdoso(Ingresso *ing, const char *diretorio) {
     FILE *arq = fopen(diretorio, "a");
     if (arq == NULL) {
         return -1; // Erro ao abrir arquivo
     }
 
-    if (isIdoso(*ing)) {
+    if (isIdoso(ing)) {
         fprintf(arq, "%d;%s;%d\n",
             ing->id,
             ing->nome,
@@ -38,7 +36,7 @@ int salvarIngresso(Ingresso *ing, const char *diretorio) {
     return 1; // Sucesso
 }
 
-// Carrega uma fila de ingressos de idosos a partir do arquivo
+// Carrega o idosos na fila apartir do arquivo
 // Retorna a quantidade de dados lidos, -1 para fracasso
 int carregarIdosos(Ingresso *fila, const char* diretorio) {
     FILE *arq = fopen(diretorio, "r");
@@ -49,13 +47,12 @@ int carregarIdosos(Ingresso *fila, const char* diretorio) {
     char linha[BUFFER_LINHA];
     int qtd;
 
-    // Ignora o cabeçalho
     fgets(linha, sizeof(linha), arq);
 
     while (fgets(linha, sizeof(linha), arq) != EOF) {
         Ingresso *ing = &fila[qtd];
 
-        if (!isIdoso(*ing)) continue; // Ignora o que não é idoso
+        if (!isIdoso(ing)) continue; // Ignora quem não é idoso
 
         int lidos = sscanf(linha, "%d;%63[^;];%d",
             ing->id,
@@ -63,8 +60,7 @@ int carregarIdosos(Ingresso *fila, const char* diretorio) {
             ing->idade
         );
 
-        // Se leu todos os campos e é idoso, conta
-        if (lidos == 3) qtd++;
+        if (lidos == 3) qtd++; // Conta cada idoso
     }
 
     fclose(arq);

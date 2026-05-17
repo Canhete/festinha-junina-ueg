@@ -10,7 +10,7 @@ festa
 exec
 
 # Dados de runtime (não versionar CSV com dados reais)
-data/*.csv
+data/ingressos/*.csv
 
 # Editor
 .vscode/
