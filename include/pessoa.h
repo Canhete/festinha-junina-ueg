@@ -29,4 +29,9 @@ typedef struct Pessoa {
 
 Pessoa* criar_no(char* nome, int idade, TipoCliente tipo, int mat_dono, int mat_comprador, float saldo);
 
+typedef struct {
+    Pessoa* frente;
+    Pessoa* tras;
+} FilaVendas;
+
 #endif 

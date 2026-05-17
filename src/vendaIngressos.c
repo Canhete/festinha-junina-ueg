@@ -59,7 +59,6 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
 
     // Lendo linha por linha do arquivo
     while (fscanf(arquivo, "%d,%[^,],%d,%d,%f\n", &matricula, nome, &idade, &extras, &saldo_inicial) != EOF) {
-        
         // verifica se a matricula e valida
         if (validarMatricula(matricula)) {
             
@@ -85,19 +84,89 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
                 cont_sucesso++;
 
 		estoque_festa.ingressos--;
-
             }
         } else {
             cont_barrado++;
         }
     }
-
     fclose(arquivo);
 
     *resBarrado = cont_barrado;
     *resSucesso = cont_sucesso;
 
     return lista; // Retorna o novo ponteiro de início da lista
+}
+
+void enfileirar(FilaVendas* fila, Pessoa* nova_pessoa) {
+    nova_pessoa->proximo = NULL; 
+
+    // caso a fila esteja vazia
+    if (fila->tras == NULL) {
+        fila->frente = nova_pessoa;
+        fila->tras = nova_pessoa;
+    } else {
+        fila->tras->proximo = nova_pessoa;
+        fila->tras = nova_pessoa;
+    }
+}
+
+Pessoa* desenfileirar(FilaVendas* fila) {
+    // se estiver vazia, acabou a fila
+    if (fila->frente == NULL) {
+        return NULL;
+    }
+
+    // isolando no da frente
+    Pessoa* isolado = fila->frente;
+    
+    fila->frente = fila->frente->proximo;
+
+    if (fila->frente == NULL) {
+        fila->tras = NULL;
+    }
+
+    isolado->proximo = NULL;
+    
+    return isolado;
+}
+
+void carregarImediato(char* nome_arquivo, FilaVendas* filaGeral, FilaVendas* filaIdosos, FilaVendas* filaAlunos) {
+    FILE* arquivo = fopen(nome_arquivo, "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo %s\n", nome_arquivo);
+        return;
+    }
+
+    char linha[256];
+    // Pula a primeira linha
+    if (fgets(linha, sizeof(linha), arquivo) == NULL) {
+        fclose(arquivo);
+        return;
+    }
+
+    int matricula, idade, extras;
+    char nome[50];
+    float saldo_inicial;
+    int cont_sucesso = 0;
+    int cont_barrado = 0;
+
+    // Lendo linha por linha do arquivo
+    while (fscanf(arquivo, "%d,%[^,],%d,%d,%f\n", &matricula, nome, &idade, &extras, &saldo_inicial) != EOF) {
+	    Pessoa* novo = criar_no(nome, idade, ALUNO, matricula, matricula, saldo_inicial);
+
+	    if (matricula == 0){
+		    if (idade > 60){
+			enfileirar(filaIdosos, novo);
+		    } else{
+			enfileirar(filaGeral, novo);
+		    }
+	    } else{
+		    if (validarMatricula(matricula)){
+			    enfileirar(filaAlunos, novo);
+		    }		
+	}
+    }
+    fclose(arquivo);
 }
 
 int salvarLista(char nomeArquivo[], Pessoa *lista){ // salva a lista encadeada em um arquivo CSV
@@ -134,22 +203,50 @@ void esperarEnter(){
 	system("stty echo"); // religa o eco
 }
 
-int vendaIngressos(){
-	printf("\033[H\033[J"); // limpando o terminal
-
-	printf("Sistema de venda de ingressos!");
-
+void antesDia28(){
 	Pessoa *lista_festa = NULL;
 	
 	int barrados=0;
 	int sucesso=0;
 	lista_festa = carregar_vendas_antecipadas("./data/ingressos/listaAlunosAntes28.csv", lista_festa, &barrados, &sucesso);
 	salvarLista("./data/ingressos/ingressosVendidos.csv", lista_festa);
+	
+	printf("\033[H\033[J"); // limpando o terminal
 
-	printf("Quantidade de convidados aceitos: %d\nQuantidade de alunos barrados: %d\n", sucesso, barrados);
+	printf("Processo finalizado! A lista de ingressos vendidos foi salvo no CSV\n\n");
+
+	printf("Quantidade de convidados aceitos: %d\nQuantidade de alunos barrados: %d\n\n", sucesso, barrados);
 	printf("Ingressos restantes: %d\nIngressos vendidos: %d\n\n", estoque_festa.ingressos, (MAX_INGRESSOS-estoque_festa.ingressos));
-
+	
 	esperarEnter();
+	printf("\033[H\033[J"); // limpando o terminal
+}
+
+void dia28(){
+	printf("Venda de ingressos no dia 28!\n\n");
+	
+	FilaVendas idosos = {NULL, NULL};
+    	FilaVendas alunos = {NULL, NULL};
+    	FilaVendas geral  = {NULL, NULL};
+
+	carregarImediato("./data/ingressos/vendaImediata.csv", &geral, &idosos, &alunos);
+}
+
+int vendaIngressos(){
+	printf("\033[H\033[J"); // limpando o terminal
+
+	printf("Sistema de venda de ingressos!\n");
+	
+	printf("Qual processo deseja simular:\n1 - Venda de ingressos antes do dia 28\n2 - Venda de ingressos no dia 28");
+	int escolha;
+	printf("\nSua resposta: ");
+	scanf("%d", &escolha);
+
+	if (escolha == 1){
+		antesDia28();
+	} else{
+		dia28();
+	}
 
 	return 0;
 }
