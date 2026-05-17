@@ -1,6 +1,11 @@
 # festinha-junina-ueg
 Esse é um sistema que simula a compra de ingressos de uma festa junina.
 
+## Compilação
+
+`gcc main.c -o exec`
+`./exec`
+
 ## Contexto
 
 Uma festa junina será realizada no dia 28 de Maio.
