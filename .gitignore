@@ -1,1 +1,22 @@
+# Compilação
+build/
+*.o
+*.out
+*.a
+*.so
+
+# Binário
+festa
 exec
+
+# Dados de runtime (não versionar CSV com dados reais)
+data/*.csv
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Sistema
+.DS_Store
+Thumbs.db
