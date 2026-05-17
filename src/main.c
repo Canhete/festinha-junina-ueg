@@ -1,12 +1,17 @@
 // Módulo main:
 // O módulo principal onde o programa é executado
+<<<<<<< HEAD
 // Arquivo de incialização do projeto. Ese arquivo deve conter somente o menu inicial do projeto e a chamada dos demais módulos.
 // Não insira métodos adicionais ou lógica complexa nesse arquivo.
+=======
+// Chama os outros módulos
+>>>>>>> 334cf40b6414fdd4635be9e94d18459dd282e394
 
 // Bibliotecas
 #include <stdio.h>
 #include "../include/ingresso.h"
 #include "../include/persistencia.h"
+<<<<<<< HEAD
 #include "../include/vendaIngressos.h"
 
 // Programa principal
@@ -54,5 +59,46 @@ int main(){
     } while (escolha != 0);
 
     printf("Programa encerrado.\n");
+=======
+
+// Programa principal
+int main() {
+    int opcao;
+
+    do {
+        printf("\n=== Festa Junina ===\n");
+        printf("Digite um número para opção:\n");
+        printf("[1] --> Comprar ingresso\n");
+        printf("[2] --> Listar ingressos\n");
+        printf("[0] --> Sair\n");
+        printf("======================\n");
+        printf("Opcão: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("Comprar ingresso\n");
+
+                // Lógica de inserção de novo ingresso
+
+                break;
+
+            case 2:
+                printf("Listar ingressos\n");    
+
+                // Lógica de listagem dos ingressos
+                
+                break;
+
+            case 0:
+                break;;
+
+            default:
+                printf("Opção inválida!");
+                break;
+        }
+    } while (opcao != 0);
+
+>>>>>>> 334cf40b6414fdd4635be9e94d18459dd282e394
     return 0;
 }
