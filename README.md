@@ -3,10 +3,13 @@ Esse é um sistema que simula a compra de ingressos de uma festa junina.
 
 ## Compilação
 
-Gerando binário
-`gcc main.c src/*.c -o exec`
+Gerando binário: 
+
+```make build```
+
 Executando binário
-`./exec`
+
+```make run```
 
 ## Contexto
 
