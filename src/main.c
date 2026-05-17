@@ -1,49 +1,39 @@
-// Módulo main:
-// O módulo principal onde o programa é executado
-// Chama os outros módulos
+// Arquivo de incialização do projeto. Ese arquivo deve conter somente o menu inicial do projeto e a chamada dos demais módulos.
+// Não insira métodos adicionais ou lógica complexa nesse arquivo.
 
-// Bibliotecas
+// bibliotecas padrao
 #include <stdio.h>
-#include "../include/ingresso.h"
-#include "../include/persistencia.h"
 
-// Programa principal
-int main() {
-    int opcao;
+// bibliotecas proprias
+#include "../include/vendaIngressos.h"
 
-    do {
-        printf("\n=== Festa Junina ===\n");
-        printf("Digite um número para opção:\n");
-        printf("[1] --> Comprar ingresso\n");
-        printf("[2] --> Listar ingressos\n");
-        printf("[0] --> Sair\n");
-        printf("======================\n");
-        printf("Opcão: ");
-        scanf("%d", &opcao);
+int main(){
+	printf("Sistema Geral de Festa Junina\n");
 
-        switch (opcao) {
-            case 1:
-                printf("Comprar ingresso\n");
+	int escolha;
 
-                // Lógica de inserção de novo ingresso
+	while (1){
+		printf("1 - Venda de ingressos(automatizado por CSV)\n2 - Venda de produtos internos(Interativo)\n3 - Gerar relatórios finais\n4 - Encerrar programa\n");
+		printf("Sua escolha: ");
+		scanf("%d", &escolha);
+		
+		printf("\n");
 
-                break;
-
-            case 2:
-                printf("Listar ingressos\n");    
-
-                // Lógica de listagem dos ingressos
-                
-                break;
-
-            case 0:
-                break;;
-
-            default:
-                printf("Opção inválida!");
-                break;
-        }
-    } while (opcao != 0);
-
-    return 0;
+		switch(escolha){
+			case 1:
+				// chamar módulo venda de ingressos
+				vendaIngressos();
+				break;
+			case 2:
+				// chamar módulo venda de produtos
+				break;
+			case 3:
+				// gerar relatórios finais
+				break;
+			case 4:
+				printf("Encerrando programa!");
+				return 0;
+				break;
+		}
+	}
 }
