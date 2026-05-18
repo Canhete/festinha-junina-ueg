@@ -3,9 +3,11 @@
 
 // bibliotecas proprias
 #include "../include/vendaIngressos.h"
-
+#include "../include/produtos.h" 
+#include "../include/pessoa.h"
 // Declarando a variável global do estoque
 // Ela fica visível para todas as funções do seu arquivo
+
 ControleEstoque estoque_festa;
 
 int main(){
@@ -13,7 +15,10 @@ int main(){
 	estoque_festa.ingressos = 1000;
     	estoque_festa.cervejas = 1000;
     	estoque_festa.refrigerantes = 500;
-    	estoque_festa.pasteis = 300;
+		estoque_festa.sucos = 500;
+		estoque_festa.agua = 500;
+    	
+		//Comida possui estoque indefinido, pois ao decorrer das vendas mais comida é preparada
 
 	printf("Sistema Geral de Festa Junina\n");
 
@@ -33,9 +38,12 @@ int main(){
 				break;
 			case 2:
 				// chamar módulo venda de produtos
+				vendaProdutos(lista_participantes);
 				break;
 			case 3:
 				// gerar relatórios finais
+				fechamentoFesta(lista_participantes);
+                break;
 				break;
 			case 4:
 				printf("Encerrando programa!");
