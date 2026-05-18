@@ -65,9 +65,13 @@ void vendaProdutos(Pessoa* lista) {
         return;
     }
 
-    printf("\033[H\033[J"); // Limpa terminal
+    printf("\033[H\033[J"); // Limpa terminals
 
-    printf(" VENDA DE PRODUTOS INTERNOS \n");
+     printf(" VENDA DE PRODUTOS INTERNOS \n");
+
+    int c;
+    while((c = getchar()) != '\n' && c != EOF); // Limpa o buffer de entrada
+  
     
     char nomeBusca[50];
     printf("Digite o nome do comprador: ");
@@ -83,6 +87,9 @@ void vendaProdutos(Pessoa* lista) {
         printf("Participante não encontrado na lista de ingressos da festa\n\n");
         return;
     }
+
+    printf("\033[H\033[J"); // Limpa terminal
+      
 
    const char* tipoTexto; //ajudar a observar o tipo
 
