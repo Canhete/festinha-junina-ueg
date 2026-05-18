@@ -40,6 +40,16 @@ Pessoa* carregarParticipantes(const char* nomeArquivo) {
 
 // Função para registrar a venda física no CSV de histórico 
 
+void registrarLogConsumo(const char* comprador, const char* produto, int qtd, float valorTotal) {
+    FILE* arquivo = fopen("./data/vendas_produtos.csv", "a");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir vendas de produtos!\n");
+        return;
+    }
+    // Formato: Produto, Quantidade, Comprador, ValorTotal
+    fprintf(arquivo, "%s,%d,%s,%.2f\n", produto, qtd, comprador, valorTotal);
+    fclose(arquivo);
+}
 
 // Módulo de Vendas Internas
 void vendaProdutos(Pessoa* lista) { 
@@ -105,7 +115,10 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
     switch(opcao) {
         case 1:
             // Bebida alcoólica apenas para maiores de 18 anos
-            
+            if (atual->idade < 18) {
+                printf("Venda proibida, cliente menor de 18 anos.\n\n");
+                return;
+
             //Verifica o estoque 
             if (estoque_festa.cervejas <= 0) {
                 printf("Estoque de Cerveja esgotado!\n\n");
@@ -156,7 +169,7 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
 
         case 5:
 
-        precoItem = PRECO_MILHO;
+        precoItem = PRECO_PAMONHA;
         strcpy(nomeProduto, "Pamonha");
         break;
 
