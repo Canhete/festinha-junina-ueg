@@ -44,7 +44,7 @@ while (fscanf(arquivo, "%d,%[^,],%d,%d,%d,%f,%f\n", &mat_dono, nome, &idade, &ti
     return lista;
 }
 
-// Função para registrar a venda física no CSV de histórico 
+// Função para registrar a venda física no CSV de históricoll 
 
 void registrarLogConsumo(const char* comprador, const char* produto, int qtd, float valorTotal) {
     FILE* arquivo = fopen("./data/vendas_produtos.csv", "a");
