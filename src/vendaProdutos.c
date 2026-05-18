@@ -38,7 +38,7 @@ Pessoa* carregarParticipantes(const char* nomeArquivo) {
     return lista;
 }
 
-// Função para registrar a venda física no CSV de histórico
+// Função para registrar a venda física no CSV de histórico 
 
 
 // Módulo de Vendas Internas
@@ -154,7 +154,30 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
 
         //Casos para comidas:
 
+        case 5:
 
+        precoItem = PRECO_MILHO;
+        strcpy(nomeProduto, "Pamonha");
+        break;
+
+        case 6: 
+
+        precoItem = PRECO_MILHO;
+        strcpy(nomeProduto, "Milho");
+        break;
+
+        case 7:
+
+        precoItem = PRECO_SALGADO;
+        strcpy(nomeProduto, "Salgado");
+        break;
+
+
+        case 8: 
+
+        precoItem = PRECO_PASTEL
+        strcpy(nomeProduto, "Pastel");
+        break;
 
         default:
             printf("Opção inválida!\n\n");
