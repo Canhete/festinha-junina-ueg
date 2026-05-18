@@ -65,7 +65,7 @@ void vendaProdutos(Pessoa* lista) {
         return;
     }
 
-    printf("\033[H\033[J"); // Limpa terminals
+    printf("\033[H\033[J"); // Limpa terminalsas
 
      printf(" VENDA DE PRODUTOS INTERNOS \n");
 
