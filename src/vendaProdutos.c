@@ -82,21 +82,21 @@ void vendaProdutos(Pessoa* lista) {
    const char* tipoTexto; //ajudar a observar o tipo
 
    //Usando o tipoTexto para 
-switch (atual->tipo) {
-    case ALUNO:
-        tipoTexto = "Aluno";
-        break;
-    case IDOSO:
-        tipoTexto = "Idoso";
-        break;
-    default:
-        tipoTexto = "Convidado/Resto";
-        break;
-}
+    switch (atual->tipo) {
+        case ALUNO:
+            tipoTexto = "Aluno";
+            break;
+        case IDOSO:
+            tipoTexto = "Idoso";
+            break;
+        default:
+            tipoTexto = "Convidado/Resto";
+            break;
+    }
 
-printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
+    printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
 
-// Exibindo os produtos da festa 
+    // Exibindo os produtos da festa 
 
     printf("1 - Cerveja (R$ %.2f)\n", PRECO_CERVEJA);
     printf("2 - Refrigerante (R$ %.2f)\n", PRECO_REFRIGERANTE);
@@ -189,7 +189,7 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
 
         case 8: 
 
-        precoItem = PRECO_PASTEL
+        precoItem = PRECO_PASTEL;
         strcpy(nomeProduto, "Pastel");
         break;
 
@@ -220,8 +220,8 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
 
     // Registrar no histórico de vendas global
     // registrarLogConsumo(atual->nome, nomeProduto, 1, precoItem);
-    printf("Venda realizada com sucesso!\n\n");
+    printf("Venda realizada com sucesso!\n\n");    
 }
-
+}
     
 
