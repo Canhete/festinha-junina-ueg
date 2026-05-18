@@ -21,9 +21,6 @@ Pessoa* carregarParticipantes(const char* nomeArquivo) {
     fscanf(arquivo, "%*[^\n]\n"); 
 
     Pessoa* lista = NULL;
-    int mat_dono, tipo_int, mat_comprador;
-    char nome[50];
-    float saldo, debito;
 
     // Declaração das variáveis locais antes do while:
 int mat_dono, tipo_int, mat_comprador, idade;
