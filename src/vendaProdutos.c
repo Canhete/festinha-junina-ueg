@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../include/vendaProdutos.h"
 #include "../include/vendaIngressos.h"
+#include "../include/pessoa.h"
 
 
 extern ControleEstoque estoque_festa;
@@ -17,7 +18,7 @@ Pessoa* carregarParticipantes(const char* nomeArquivo) {
     char linha[256];
     
     // Pula o cabeçalho do CSV
-    fscanf(file, "%*[^\n]\n"); 
+    fscanf(arquivo, "%*[^\n]\n"); 
 
     Pessoa* lista = NULL;
     int mat_dono, tipo_int, mat_comprador;
@@ -26,7 +27,7 @@ Pessoa* carregarParticipantes(const char* nomeArquivo) {
 
     // Lendo o formato salvo,  tem que ser editado ainda os titulos (mat_dono ...)
     while (fscanf(arquivo, "%d,%[^,],%d,%d,%f,%f\n", &mat_dono, nome, &tipo_int, &mat_comprador, &saldo, &debito) != EOF) {
-        Pessoa* novo = criar_no(nome, idade, (TipoCliente)tipo_int, mat_dono, mat_comprador, saldo);
+        Pessoa* novo = criar_no(nome, 18, (TipoCliente)tipo_int, mat_dono, mat_comprador, saldo);
         novo->debito = debito;
         
         // Insere na lista
@@ -182,7 +183,7 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
     }
 
     // Registrar no histórico de vendas global
-    registrarLogConsumo(atual->nome, nomeProduto, 1, precoItem);
+    // registrarLogConsumo(atual->nome, nomeProduto, 1, precoItem);
     printf("Venda realizada com sucesso!\n\n");
 }
 
