@@ -46,7 +46,7 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
 
     char linha[256];
 
-    fscanf(file, "%*[^\n]\n"); // pula o cabeçalho
+    fscanf(arquivo, "%*[^\n]\n"); // pula o cabeçalho
 
     if (fgets(linha, sizeof(linha), arquivo) == NULL) {
         fclose(arquivo);
