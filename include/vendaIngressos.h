@@ -10,6 +10,8 @@ typedef struct {
     int cervejas;
     int refrigerantes;
     int pasteis;
+    int sucos;
+    int aguas;
 } ControleEstoque;
 
 int vendaIngressos();

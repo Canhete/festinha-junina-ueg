@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 // bibliotecas proprias
-#include "../include/vendaIngressos.h"
-#include "../include/produtos.h" 
+#include "../include/vendaIngressos.h" 
 #include "../include/pessoa.h"
 // Declarando a variável global do estoque
 // Ela fica visível para todas as funções do seu arquivo
@@ -16,8 +15,10 @@ int main(){
     	estoque_festa.cervejas = 1000;
     	estoque_festa.refrigerantes = 500;
 		estoque_festa.sucos = 500;
-		estoque_festa.agua = 500;
+		estoque_festa.aguas = 500;
     	
+	Pessoa* lista_participantes = carregarParticipantes("./data/ingressos/ingressosVendidos.csv");
+
 		//Comida possui estoque indefinido, pois ao decorrer das vendas mais comida é preparada
 
 	printf("Sistema Geral de Festa Junina\n");
