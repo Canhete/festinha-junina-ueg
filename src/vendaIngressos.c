@@ -45,7 +45,9 @@ Pessoa* carregar_vendas_antecipadas(char* nome_arquivo, Pessoa* lista, int* resB
     }
 
     char linha[256];
-    // Pula a primeira linha (cabeçalho: Matricula,Nome,Idade...)
+
+    fscanf(file, "%*[^\n]\n"); // pula o cabeçalho
+
     if (fgets(linha, sizeof(linha), arquivo) == NULL) {
         fclose(arquivo);
         return lista;
@@ -213,6 +215,61 @@ void esperarEnter(){
 	system("stty echo"); // religa o eco
 }
 
+void registrarVendaNoFinal(char nomeArquivo[], Pessoa* atendido) {
+    // Modo "a" (append) abre o arquivo e joga o cursor para o final, após a última linha
+    FILE* arquivo = fopen(nomeArquivo, "a");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para registrar venda imediata!\n");
+        return;
+    }
+
+    // Grava os dados seguindo o mesmo padrão do seu salvarLista
+    fprintf(arquivo, "%d,%s,%d,%d,%.2f,%.2f\n", 
+            atendido->matricula_dono, 
+            atendido->nome, 
+            atendido->tipo, 
+            atendido->matricula_comprador, 
+            atendido->saldo, 
+            atendido->debito);
+
+    fclose(arquivo);
+}
+
+void atenderFilas(char nomeArquivo[], FilaVendas* filaGeral, FilaVendas* filaIdosos, FilaVendas* filaAlunos){ // atende as filas normais e prioritarias de forma intercalada
+	Pessoa* aux = NULL;
+	while (1){
+		if (filaIdosos->frente == NULL && filaAlunos->frente == NULL && filaGeral->frente == NULL) { // acabaram as filas
+            		break; 
+        	}
+		for (int i=0; i<5; i++){
+			if (filaIdosos-> frente == NULL){ // fila idoso acabou
+				break;
+			}
+			aux = desenfileirar(filaIdosos);
+			registrarVendaNoFinal(nomeArquivo, aux);
+
+			estoque_festa.ingressos--;
+		}
+		for (int i=0; i<3; i++){
+			if (filaAlunos-> frente == NULL){ // fila aluno acabou
+				break;
+			}
+			aux = desenfileirar(filaAlunos);
+			registrarVendaNoFinal(nomeArquivo, aux);
+			estoque_festa.ingressos--;
+		}
+		for (int i=0; i<1; i++){
+			if (filaGeral-> frente == NULL){ // fila geral acabou
+				break;
+			}
+			aux = desenfileirar(filaGeral);
+			registrarVendaNoFinal(nomeArquivo, aux);
+			estoque_festa.ingressos--;
+		}
+	}
+}
+
 void antesDia28(){
 	Pessoa *lista_festa = NULL;
 	
@@ -242,6 +299,10 @@ void dia28(){
 	carregarImediato("./data/ingressos/vendaImediata.csv", &geral, &idosos, &alunos);
 
 	printf("Ingressos restantes: %d\nIngressos vendidos: %d\n\n", estoque_festa.ingressos, (MAX_INGRESSOS-estoque_festa.ingressos));
+
+	atenderFilas("./data/ingressos/ingressosVendidos.csv", &geral, &idosos, &alunos);
+	printf("Ingressos restantes: %d\nIngressos vendidos: %d\n\n", estoque_festa.ingressos, (MAX_INGRESSOS-estoque_festa.ingressos));
+
 
 	esperarEnter();
 	printf("\033[H\033[J"); // limpando o terminal
