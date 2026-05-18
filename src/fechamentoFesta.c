@@ -9,7 +9,6 @@
 #include "../include/pessoa.h"
 
 extern ControleEstoque estoque_festa;
-// extern int MAX_INGRESSOS; // Descomente esta linha se MAX_INGRESSOS não for um #define no .h
 
 // Protótipo local ou externo para garantir que o compilador conheça a função
 void esperarEnter(void); 
