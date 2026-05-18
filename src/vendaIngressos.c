@@ -298,8 +298,6 @@ void dia28(){
 
 	carregarImediato("./data/ingressos/vendaImediata.csv", &geral, &idosos, &alunos);
 
-	printf("Ingressos restantes: %d\nIngressos vendidos: %d\n\n", estoque_festa.ingressos, (MAX_INGRESSOS-estoque_festa.ingressos));
-
 	atenderFilas("./data/ingressos/ingressosVendidos.csv", &geral, &idosos, &alunos);
 	printf("Ingressos restantes: %d\nIngressos vendidos: %d\n\n", estoque_festa.ingressos, (MAX_INGRESSOS-estoque_festa.ingressos));
 
