@@ -8,6 +8,7 @@
 // bibliotecas proprias
 #include "../include/vendaIngressos.h"
 #include "../include/pessoa.h"
+#include "../include/aux.h"
 
 extern ControleEstoque estoque_festa;
 
@@ -199,20 +200,6 @@ int salvarLista(char nomeArquivo[], Pessoa *lista){ // salva a lista encadeada e
 	}
 	fclose(arquivo);
 	return 1;
-}
-
-void esperarEnter(){
-	printf("Pressione Enter para continuar\n\n");
-	system("stty -echo"); // desliga o eco
-	
-	int c;
-
-	while (getc(stdin) == '\n'); 
-
-	while ((c = getchar()) != '\n' && c != EOF) { // aguarda o enter
-	} 
-
-	system("stty echo"); // religa o eco
 }
 
 void registrarVendaNoFinal(char nomeArquivo[], Pessoa* atendido) {
