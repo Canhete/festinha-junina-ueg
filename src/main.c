@@ -3,6 +3,7 @@
 
 // bibliotecas proprias
 #include "../include/vendaIngressos.h"
+#include "../include/vendaProdutos.h"
 
 // Declarando a variável global do estoque
 // Ela fica visível para todas as funções do seu arquivo
@@ -33,6 +34,7 @@ int main(){
 				break;
 			case 2:
 				// chamar módulo venda de produtos
+				vendaProdutos();
 				break;
 			case 3:
 				// gerar relatórios finais
