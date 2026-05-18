@@ -25,9 +25,14 @@ Pessoa* carregarParticipantes(const char* nomeArquivo) {
     char nome[50];
     float saldo, debito;
 
-    // Lendo o formato salvo,  tem que ser editado ainda os titulos (mat_dono ...)
-    while (fscanf(arquivo, "%d,%[^,],%d,%d,%f,%f\n", &mat_dono, nome, &tipo_int, &mat_comprador, &saldo, &debito) != EOF) {
-        Pessoa* novo = criar_no(nome, 18, (TipoCliente)tipo_int, mat_dono, mat_comprador, saldo);
+    // Declaração das variáveis locais antes do while:
+int mat_dono, tipo_int, mat_comprador, idade;
+char nome[50];
+float saldo, debito;
+
+// Lendo o formato salvo
+while (fscanf(arquivo, "%d,%[^,],%d,%d,%d,%f,%f\n", &mat_dono, nome, &idade, &tipo_int, &mat_comprador, &saldo, &debito) != EOF) {
+    Pessoa* novo = criar_no(nome, idade, (TipoCliente)tipo_int, mat_dono, mat_comprador, saldo);
         novo->debito = debito;
         
         // Insere na lista
@@ -114,21 +119,21 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
     char nomeProduto[30];
 
     switch(opcao) {
+            
         case 1:
-            // Bebida alcoólica apenas para maiores de 18 anos
-            if (atual->idade < 18) {
-                printf("Venda proibida, cliente menor de 18 anos.\n\n");
-                return;
+        if (atual->idade < 18) {
+            printf("Venda proibida, cliente menor de 18 anos.\n\n");
+            return;
+        } // <-- Chave de fechamento adicionada aqui
 
-            //Verifica o estoque 
-            if (estoque_festa.cervejas <= 0) {
-                printf("Estoque de Cerveja esgotado!\n\n");
-                return;
-            }
-            precoItem = PRECO_CERVEJA;
-            strcpy(nomeProduto, "Cerveja");
-            estoque_festa.cervejas--;
-            break;
+        if (estoque_festa.cervejas <= 0) {
+            printf("Estoque de Cerveja esgotado!\n\n");
+            return;
+        }
+        precoItem = PRECO_CERVEJA;
+        strcpy(nomeProduto, "Cerveja");
+        estoque_festa.cervejas--;
+        break;
 
         case 2:
 
@@ -189,7 +194,7 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
 
         case 8: 
 
-        precoItem = PRECO_PASTEL
+        precoItem = PRECO_PASTEL;
         strcpy(nomeProduto, "Pastel");
         break;
 
@@ -222,6 +227,7 @@ printf("\nCliente encontrado: %s (%s)\n", atual->nome, tipoTexto);
     // registrarLogConsumo(atual->nome, nomeProduto, 1, precoItem);
     printf("Venda realizada com sucesso!\n\n");
 }
+
 
     
 
